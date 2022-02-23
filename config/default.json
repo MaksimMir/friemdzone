@@ -1,0 +1,5 @@
+{
+    "port": 5000,
+    "mongourl": "mongodb+srv://root:root@cluster0.wwlhv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "webTokenSecret": "secret key"
+}
