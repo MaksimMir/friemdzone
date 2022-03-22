@@ -1,5 +1,11 @@
 {
     "port": 5000,
-    "mongourl": "mongodb+srv://root:root@cluster0.wwlhv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    "webTokenSecret": "secret key"
+    "webTokenSecret": "secret key",
+    "baseUrl": "http://localhost:5000",
+    "mysqlConfig": {
+        "host": "localhost",
+        "user": "root",
+        "password": "root",
+        "database": "friendxone"
+    }
 }

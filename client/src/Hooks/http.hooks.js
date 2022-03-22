@@ -17,14 +17,14 @@ const useHttp = () => {
                 body, 
                 headers
             });
-            const data = response.json();
+            const data = await response.json();
 
             if (!response.ok) {
                 throw new Error(data.message || 'Что-то пошло не так');
             }
 
             setLoading(false);
-            console.log(data)
+
             return data;
         } catch (error) {
             setLoading(false);
@@ -33,7 +33,7 @@ const useHttp = () => {
         }
     }, []);
 
-    const cleanError = useCallback(() => setError(null), []);
+    const cleanError = useCallback(() => setTimeout(() => setError(null), 2000), []);
 
     return { loading, request, error, cleanError };
 }

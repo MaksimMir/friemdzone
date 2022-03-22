@@ -17,6 +17,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	text-decoration: none;
 }
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -27,7 +28,7 @@ html {
 }
 body {
 	line-height: 1;
-    background-color: mediumslateblue;
+    background-color: #3f51b5;
     font-family: Roboto, sans-serif;
     font-size: 15px;
     color: coral;
@@ -47,4 +48,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+@import "react-alice-carousel/lib/scss/alice-carousel.scss";
 

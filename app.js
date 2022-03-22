@@ -1,27 +1,26 @@
 const express = require('express');
 const config = require('config');
-const mongoose = require('mongoose');
 const authRouter = require('./routes/auth.route');
+const eventRouter = require('./routes/event.route');
+const messageRouter = require('./routes/message.route');
+const feedbackRouter = require('./routes/feedback.route');
+const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')))
 app.use('/api/auth', authRouter);
+app.use('/api/event', eventRouter);
+app.use('/api/message', messageRouter);
+app.use('/api/feedback', feedbackRouter);
 
 const PORT = config.get('port') || 5000;
 
-const start = () => {
-    try {
-        mongoose.connect(config.get('mongourl'), {
-            useUnifiedTopology: true
-        });
 
-        app.listen(PORT, () => console.log(`App started on port ${PORT}`));
-    } catch (error) {
-        console.log('Server Error', error.message);
-        process.exit(1);
-    }
-}
 
-start();
+app.listen(PORT, () => console.log(`App started on port ${PORT}`));
+
 
