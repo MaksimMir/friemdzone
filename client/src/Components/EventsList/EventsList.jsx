@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Table, TableBody, TableCell, TableHead, TableRow, TableContainer, TablePagination } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableHead, TableRow, TableContainer, TablePagination, Button } from '@mui/material'
 import { observer } from 'mobx-react-lite';
 import events from '../../Store/events';
 import card from '../../Store/card';
@@ -48,7 +48,10 @@ const EventsList = () => {
       setRowsPerPage(+event.target.value);
       setPage(0);
     };
-  
+
+    const handlerClose = () => {
+      togglerList(false);
+    }
     return (
       <Paper sx={{ padding: 2, borderRadius: 10 }}>
         <TableContainer sx={{ maxHeight: 440 }}>
@@ -108,7 +111,9 @@ const EventsList = () => {
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          sx={{ marginBottom: '5px'}}
         />
+        <Button onClick={handlerClose}>Close</Button>
       </Paper>
     );
 }

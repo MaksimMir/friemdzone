@@ -4,16 +4,16 @@ import {
     Dialog, 
     DialogActions, 
     DialogContent, 
-    DialogContentText, 
-    DialogTitle, 
+    DialogTitle,  
     TextField } from '@mui/material';
 import useHttp from '../../Hooks/http.hooks';
 import { observer } from 'mobx-react-lite';
 import store from '../../Store/store';
+import warningBar from '../../Store/warningBar';
 
 const RegisterModal = () => {
+    const { onOpenBar, onCloseBar } = warningBar;
     const { openReg, togglerReg } = store;
-    const [ message, setMessage ] = useState(null);
     const [ formData, setFormData ] = useState({
                                             nickname: '',
                                             firstname: '',
@@ -34,12 +34,12 @@ const RegisterModal = () => {
 
         try {
             const data = await request('/api/auth/register', 'POST', {...formData});
-            console.log(data.message);
+            onOpenBar(data.message);
+            onCloseBar();
+            if (data) {
+                togglerReg();
+            }
         } catch (error){};
-
-        if (!error) {
-            togglerReg();
-        }
     }
 
     const handleClose = () => {
@@ -47,11 +47,16 @@ const RegisterModal = () => {
     }
 
     useEffect(() => {
-        setMessage(error)
+        if (error) {
+            onOpenBar(error)
+        }
+        onCloseBar();
+        
         cleanError();
-    }, [error, cleanError])
+    }, [error, cleanError,onOpenBar, onCloseBar])
 
     return (
+        <>
             <Dialog
                 open={openReg}
                 onClose={handleClose}
@@ -59,7 +64,7 @@ const RegisterModal = () => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                {'Entry in site'}
+                {'Регистрация'}
                 </DialogTitle>
                 <DialogContent>
                 <TextField
@@ -74,7 +79,7 @@ const RegisterModal = () => {
                     />
                 <TextField
                     id="standard-basic-firstname"
-                    label="Firstname"
+                    label="Имя"
                     type="text"
                     autoComplete="current-text"
                     variant="standard"
@@ -84,7 +89,7 @@ const RegisterModal = () => {
                     />
                 <TextField
                     id="standard-basic-lastname"
-                    label="Lastname"
+                    label="Фамилия"
                     type="text"
                     autoComplete="current-text"
                     variant="standard"
@@ -94,7 +99,7 @@ const RegisterModal = () => {
                     />
                 <TextField
                     id="standard-basic-phone"
-                    label="Phone"
+                    label="Телефон"
                     type="text"
                     autoComplete="current-text"
                     variant="standard"
@@ -114,7 +119,7 @@ const RegisterModal = () => {
                     />
                 <TextField
                     id="standard-password-input"
-                    label="Password"
+                    label="Пароль"
                     type="password"
                     autoComplete="current-password"
                     variant="standard"
@@ -132,8 +137,8 @@ const RegisterModal = () => {
                     Зарегестрироваться
                 </Button>
                 </DialogActions>
-                <DialogContentText>{ message }</DialogContentText>
             </Dialog>
+        </>
     )
 }
 

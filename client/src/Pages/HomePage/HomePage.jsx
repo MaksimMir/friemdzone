@@ -1,30 +1,31 @@
 import React, { useContext } from "react";
+import { Snackbar } from "@mui/material";
 import ButtonBar from "../../Components/ButtonBar/ButtonBar";
 import TopBar from "../../Components/TopBar/TopBar";
 import { authContext } from "../../Contexts/auth.context";
 import MainBlock from "../../Components/MainBlock/MainBlock";
 import { observer } from 'mobx-react-lite';
-import events from "../../Store/events";
+import warningBar from "../../Store/warningBar";
 import Slider from "../../Components/Slider/Slider";
 import Feedback from "../../Components/Feedback/Feedback";
 
 const HomePage = () => {
-    const { togglerList } = events;
+    const { openBar, barMessage } = warningBar;
     const { isAuthentificated } = useContext(authContext);
-    const closeWindowEvents = evt => {
-        if (evt.target.tagName === 'BUTTON') {
-            return;
-        }
-        togglerList(false)
-    }
+
     return (
-        <div onClick={closeWindowEvents}>
-            <TopBar />
+        <>
+            <TopBar flag={true} />
+            <Slider />
             {isAuthentificated && <ButtonBar />}
             <MainBlock />
-            <Slider />
             <Feedback />
-        </div>
+            <TopBar flag={false} />
+            <Snackbar 
+                open={openBar}
+                message={barMessage} 
+            />
+        </>
     )
 }
 
