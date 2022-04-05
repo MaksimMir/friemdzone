@@ -10,9 +10,9 @@ const connection = mysql.createConnection(config.get('mysqlConfig'));
 router.post(
     '/register',
     [
-        check('email', 'Incorrectly email').isEmail(),
-        check('password', 'Incorrectly password').isLength({ min: 3 }),
-        check('nickname', 'Incorrectly nickname').notEmpty()
+        check('email', 'Неправильно заполнен адрес электронной почты').isEmail(),
+        check('password', 'Пароль должен содержать не менее трех символов').isLength({ min: 3 }),
+        check('nickname', 'Необходимо запоолнить поле Nickname').notEmpty()
     ],
      async (req, res) => {
         try {
@@ -20,7 +20,7 @@ router.post(
             if (!errors.isEmpty()) {
                 return res.status(400).json({
                     errors: errors.array(),
-                    message: 'Incorrectly data'
+                    message: 'Неколлектные данные'
                 })
             }
 
@@ -53,46 +53,53 @@ router.post(
             check('password', 'Take correct password').exists()
         ], 
         async (req, res) => {
-    try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({
-                errors: errors.array(),
-                message: 'Incorrectly data, change email or pussword'
-            })
-        }
+        try {
+            const errors = validationResult(req);
+            
+            if (!errors.isEmpty()) {
 
-        const { email, password } = req.body;
-
-        const selectQuery = 'SELECT ??,??,??,?? FROM ?? WHERE ??=?';
-        const formatSelectQuery = mysql.format(selectQuery, ["id", "nicname", "email", "password", "users", "email", email])
-
-        connection.query(formatSelectQuery, (err, result) => {
-            if (err) {
-                res.status(400);
-                res.send({message: 'Такой пользователь не найден.'})
+                return res.status(400).json({
+                    errors: errors.array(),
+                    message: 'Неверно заполнены поля логин или пароль'
+                })
             }
 
-            if (result.length) {
-                const user = result[0];
-                
-                const isMuch = crypt.compare(password, user.password);
-                if (!isMuch) {
+            const { email, password } = req.body;
+
+            const selectQuery = 'SELECT ??,??,??,?? FROM ?? WHERE ??=?';
+            const formatSelectQuery = mysql.format(selectQuery, ["id", "nicname", "email", "password", "users", "email", email])
+
+            connection.query(formatSelectQuery, (err, result) => {
+                if (err) {
                     res.status(400);
-                    res.send({message: 'Введите правильный пароль.'})
+                    res.send({message: 'Что-то пошло не так, попробуй снова.'})
                 }
-                const token = webToken.sign(
-                    {userId: user.id, userName: user.nicname}, 
-                    config.get('webTokenSecret'),
-                    { expiresIn: '3h'});
+                
+                if (result.length) {
+                    const user = result[0];
+                    
+                    const isMuch = crypt.compareSync(password, user.password);
 
-                res.send({ token, userId: user.id, userName: user.nicname});
-            };
-        });
+                    if (!isMuch) {
+                        res.status(400);
+                        res.send({message: 'Введите правильный пароль.'})
+                    } else {
+                        const token = webToken.sign(
+                            {userId: user.id, userName: user.nicname}, 
+                            config.get('webTokenSecret'),
+                            { expiresIn: '3h'});
+    
+                        res.send({ token, userId: user.id, userName: user.nicname});
+                    }
+                } else {
+                    res.status(400);
+                    res.send({message: 'Такой пользователь не найден.'})
+                };
+            });
 
-    } catch (error) {
-        res.status(500).json({ message: "Что-то пошло не так, попробуй снова."})
-    }        
+        } catch (error) {
+            res.status(500).json({ message: "Что-то пошло не так, попробуй снова."})
+        }        
 
 });
 

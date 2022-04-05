@@ -6,10 +6,11 @@ import { authContext } from '../../Contexts/auth.context';
 import { observer } from 'mobx-react-lite';
 import store from '../../Store/store';
 import { deepOrange, indigo } from '@mui/material/colors';
+import Socialy from '../Socialy/Socialy';
 
 const settings = ['Entry', 'Registration', 'Logout'];
 
-const TopBar = () => {
+const TopBar = ({ flag }) => {
   const { logout, userName, isAuthentificated } = useContext(authContext);
   const [ anchorElUser, setAnchorElUser ] = React.useState(null);
   const { togglerReg, togglerAuth } = store;
@@ -69,7 +70,7 @@ const TopBar = () => {
             friendzone
           </Typography>
 
-          <Box sx={{ flexGrow: 0 }}>
+          { flag ? <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 { isAuthentificated ? <Avatar  {...stringAvatar(userName)} /> : <Avatar />}
@@ -99,11 +100,11 @@ const TopBar = () => {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+            <RegisterModal />     
+            <AuthModal />
+          </Box> : <Socialy />}
         </Toolbar>
       </Container>
-      <RegisterModal />     
-      <AuthModal />
     </AppBar>
   );
 };
