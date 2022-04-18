@@ -4,9 +4,11 @@ import eventcard from '../../Store/card';
 import { observer } from 'mobx-react-lite';
 import { authContext } from '../../Contexts/auth.context';
 import useHttp from '../../Hooks/http.hooks';
+import warningBar from '../../Store/warningBar';
 
 const EventCard = () => {
-    const { request } = useHttp()
+  const { onOpenBar, onCloseBar } = warningBar;
+    const { request, error, cleanError } = useHttp()
     const { card, togglerCard, addUserToEvent, guestList } = eventcard;
     const { userName } = React.useContext(authContext);
     const addPart = () => {
@@ -16,10 +18,20 @@ const EventCard = () => {
       const userList = guestList.join(',')
       try {
         const data = await request(`/api/event/card/${card.id}`, 'PUT', {userList});
-        console.log(data);
+        onOpenBar(data.message);
+        onCloseBar();
     } catch (error) {};
       togglerCard(false);
     }
+
+    React.useEffect(() => {
+      if (error) {
+          onOpenBar(error)
+      }
+      onCloseBar();
+      
+      cleanError();
+  }, [error, cleanError,onOpenBar, onCloseBar])
   return (
     <Card sx={{ borderRadius: 10, padding: 5 }}>
       <CardContent>

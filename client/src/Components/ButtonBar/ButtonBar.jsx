@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { AppBar, Box, Toolbar, Container, Button } from '@mui/material';
 import useHttp from '../../Hooks/http.hooks';
-// import { authContext } from '../../Contexts/auth.context';
 import { indigo } from '@mui/material/colors';
 import { observer } from 'mobx-react-lite';
 import info from '../../Store/info';
@@ -19,7 +18,6 @@ const ButtonBar = () => {
     const { togglerEvt } = info;
     const { createList, togglerList } = events;
     const { request } = useHttp();
-    // const { token } = React.useContext(authContext);
     
     const handleNavMenu = async (evt) => {
       evt.preventDefault();
@@ -49,10 +47,7 @@ const ButtonBar = () => {
           break;  
         case 'Создать мероприятие':
           togglerEvt();
-          // try {
-          //   const data = await request(`/api/event/${5}`, 'PUT', {}, {Authorization: `Bearer ${token}`});
-          //   console.log(data)
-          // } catch (error) {};
+          togglerList(false)
           break;
         default:
           break;

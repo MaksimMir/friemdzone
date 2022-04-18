@@ -1,8 +1,9 @@
-import { Box, List, ListItem, Typography } from "@mui/material";
+import { Box, List, ListItem, Typography} from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import React, { useEffect } from "react";
 import { observer } from 'mobx-react-lite';
 import messanger from "../../../Store/messanger";
+
 
 const MessageBody = () => {
     const { messageList, getMessageList } = messanger;
@@ -21,7 +22,7 @@ const MessageBody = () => {
     })
     return (
         <Box sx={{ minHeight: 350, border: '1px solid', borderColor: deepOrange[500], borderRadius: '4px 4px 30px 30px', padding: '10px 5px', boxSizing: 'border-box' }}>
-            <List sx={{ height: 300, overflowY: 'scroll' }}>
+            <List sx={{ height: '300px', overflowY: 'scroll',}}>
                 { list }
             </List>
         </Box>

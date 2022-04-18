@@ -1,15 +1,17 @@
 import { List, ListItem, TextField, MenuItem, Button } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Contexts/auth.context";
 import useHttp from "../../Hooks/http.hooks";
 import { observer } from 'mobx-react-lite';
 import info from '../../Store/info';
+import warningBar from "../../Store/warningBar";
 
 const currencies = ['Кино', 'Театр', 'Музей'];
 const numbers = [1, 2, 3, 4, 5];
 
 const CreateEvent = () => {
     const { togglerEvt } = info;
+    const { onOpenBar, onCloseBar } = warningBar;
     const [ formData, setFormData ] = useState({
                                                     event: 'Кино',
                                                     name: '',
@@ -24,7 +26,7 @@ const CreateEvent = () => {
     }
     
     const { token } = useContext(authContext);
-    const { request } = useHttp();
+    const { request, error, cleanError } = useHttp();
 
     const handlerSubmit = async (evt) => {
         evt.preventDefault();
@@ -33,11 +35,22 @@ const CreateEvent = () => {
             const data = await request('/api/event/generate', 'POST', {...formData}, {
                 Authorization: `Bearer ${token}`
             });
-            console.log(data);
-        } catch (error) {};
 
-        togglerEvt();
-    }    
+            if (data) {
+                onOpenBar(data.message);
+                togglerEvt();
+            };
+            onCloseBar();
+        } catch (error) {};
+    }   
+    
+    useEffect(() => {
+        if (error) {
+            onOpenBar(error)
+        }
+        onCloseBar();
+        cleanError();
+    }, [error, cleanError,onOpenBar, onCloseBar])
 
     return (
         <List sx={{backgroundColor: 'white', padding: '20px', borderRadius: '50px'}}>

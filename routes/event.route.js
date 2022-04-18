@@ -95,7 +95,7 @@ router.put('/card/:id', async (req, res) => {
         connection.query(formatUpdateQuery, (err, result) => {
             if (err) {
                 res.status(400);
-                res.send({message: 'Такой мероприятия не существует.'})
+                res.send({message: 'Такого мероприятия не существует.'})
             }
 
             if (result) {

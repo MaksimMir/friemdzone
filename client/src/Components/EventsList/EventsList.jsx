@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Paper, Table, TableBody, TableCell, TableHead, TableRow, TableContainer, TablePagination, Button } from '@mui/material'
+import { Paper, Table, TableBody, TableCell, TableHead, TableRow, TableContainer, TablePagination, Button, styled } from '@mui/material'
 import { observer } from 'mobx-react-lite';
 import events from '../../Store/events';
 import card from '../../Store/card';
@@ -15,6 +15,36 @@ const columns = [
       align: 'right'
     }
   ];
+
+  const TablePaginationStyled = styled(TablePagination)({
+    '.css-pdct74-MuiTablePagination-selectLabel' : {
+        fontSize: '12px',
+        lineHeight: '17px'
+    },
+    '.css-16c50h-MuiInputBase-root-MuiTablePagination-select': {
+        fontSize: '12px',
+        lineHeight: '17px',
+        marginLeft: '0'
+    },
+    '.css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon, .css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon': {
+        fontSize: '25px',
+        width: '20px'
+    },
+    '.css-10by3a5-MuiButtonBase-root-MuiMenuItem-root-MuiTablePagination-menuItem': {
+        fontSize: '12px',
+        lineHeight: '17px',
+    },
+    '.css-levciy-MuiTablePagination-displayedRows': {
+        fontSize: '12px',
+        lineHeight: '17px',
+    },
+    '.css-zylse7-MuiButtonBase-root-MuiIconButton-root': {
+        padding: '3px'
+    },
+    '.css-i4bv87-MuiSvgIcon-root': {
+        fontSize: '20px'
+    }
+});
   
   function createData(name, place, time, id) {
     return { name, place, time, id };
@@ -103,7 +133,7 @@ const EventsList = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination  
+        <TablePaginationStyled  
           rowsPerPageOptions={[5, 10]}
           component="div"
           count={rows.length}

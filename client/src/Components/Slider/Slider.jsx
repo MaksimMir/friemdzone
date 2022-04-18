@@ -18,12 +18,14 @@ const Slider = () => {
     let items = postersList.map(el => {
         return (
             <img  
-                key={el.id} 
-                src={`https://image.tmdb.org/t/p/w300/${el?.poster_path}`} 
-                alt={el.original_title} 
+                key={el.kinopoiskId} 
+                src={el?.posterUrl} 
+                height='420'
+                width='290'
+                alt={el.nameOriginal} 
                 onDragStart={handleDragStart} 
                 role="presentation"
-                name={el.id} 
+                name={el.kinopoiskId} 
                 onClick={getPoster}
             />
         )

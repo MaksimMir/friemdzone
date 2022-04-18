@@ -32,6 +32,7 @@ body {
     font-family: Roboto, sans-serif;
     font-size: 15px;
     color: coral;
+	padding: 0 10px;
 }
 ol, ul {
 	list-style: none;
@@ -48,6 +49,18 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+*::-webkit-scrollbar {
+	height: 100%;
+	width: 3px;
+  }
+  *::-webkit-scrollbar-track {
+	background-color: #3949ab;
+  }
+  *::-webkit-scrollbar-thumb {
+	background-color: #ff5722;
+	border-radius: 5px;
+  }
 
 @import "react-alice-carousel/lib/scss/alice-carousel.scss";
 

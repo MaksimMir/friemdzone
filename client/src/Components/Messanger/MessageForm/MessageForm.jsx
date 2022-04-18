@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Button, FormControl, TextField, styled } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import useHttp from "../../../Hooks/http.hooks";
 import { authContext } from "../../../Contexts/auth.context";
 import { observer } from 'mobx-react-lite';
 import messanger from "../../../Store/messanger";
+import warningBar from "../../../Store/warningBar";
 
 const MessageTextField = styled(TextField)({
     '.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root' : {
@@ -45,8 +46,9 @@ const ColorButton = styled(Button)(() => ({
 }));
 
 const MessageForm = () => {
+    const { onOpenBar, onCloseBar } = warningBar;
     const [ value, setValue ] = useState('');
-    const { request } = useHttp();
+    const { request, error, cleanError } = useHttp();
     const { token } = useContext(authContext);
     const { getMessageList } = messanger;
 
@@ -62,11 +64,21 @@ const MessageForm = () => {
             const data = await request('/api/message', 'POST', {value}, {
                 Authorization: `Bearer ${token}`
             });
-            console.log(data);
+            onOpenBar(data.message);
+            onCloseBar();
         } catch (error) {};
         getMessageList();
         setValue('');
     };
+
+    useEffect(() => {
+        if (error) {
+            onOpenBar(error)
+        }
+        onCloseBar();
+        
+        cleanError();
+    }, [error, cleanError,onOpenBar, onCloseBar])
 
     return (
         <FormControl sx={{ width: '100%'}}>
