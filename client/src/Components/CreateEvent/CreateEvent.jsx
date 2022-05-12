@@ -1,4 +1,10 @@
-import { List, ListItem, TextField, MenuItem, Button } from "@mui/material";
+import { 
+    List, 
+    ListItem, 
+    TextField, 
+    MenuItem, 
+    Button, 
+    Stack } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Contexts/auth.context";
 import useHttp from "../../Hooks/http.hooks";
@@ -38,7 +44,7 @@ const CreateEvent = () => {
 
             if (data) {
                 onOpenBar(data.message);
-                togglerEvt();
+                togglerEvt(false);
             };
             onCloseBar();
         } catch (error) {};
@@ -53,7 +59,13 @@ const CreateEvent = () => {
     }, [error, cleanError,onOpenBar, onCloseBar])
 
     return (
-        <List sx={{backgroundColor: 'white', padding: '20px', borderRadius: '50px'}}>
+        <List 
+            sx={{
+                backgroundColor: 'white', 
+                padding: '20px',
+                 borderRadius: '50px'
+            }}
+        >
             <ListItem sx={{display: 'flex', justifyContent: 'space-between'}}>
                 <TextField
                     sx={{width: '100px'}}
@@ -93,7 +105,8 @@ const CreateEvent = () => {
                     required
                     size="small"
                     variant="standard"
-                    label="Name"
+                    label="Имя"
+                    placeholder="Иван Петров"
                     name="name"
                     value={formData.name}
                     onChange={handlerChange}
@@ -105,7 +118,8 @@ const CreateEvent = () => {
                     sx={{width: '100%'}}
                     variant="standard"
                     size="small"
-                    label="Time"
+                    label="Время мероприятия"
+                    placeholder="дд-мм-гг 00-00"
                     type="data"
                     name="time"
                     value={formData.time}
@@ -118,7 +132,8 @@ const CreateEvent = () => {
                     sx={{width: '100%'}}
                     variant="standard"
                     size="small"
-                    label="Place"
+                    label="Место"
+                    placeholder="кт Родина"
                     name="place"
                     value={formData.place}
                     onChange={handlerChange}
@@ -130,14 +145,28 @@ const CreateEvent = () => {
                     sx={{width: '100%'}}
                     maxRows={2}
                     variant="standard"
-                    label="Message"
+                    label="Дополнительная информация"
                     name="message"
                     value={formData.message}
                     onChange={handlerChange}
                  />
             </ListItem>
             <ListItem>
-                <Button sx={{width: '100%'}} variant="contained" onClick={handlerSubmit}>Submit</Button>
+                <Stack direction='row' spacing={5} >
+                    <Button 
+                        sx={{width: '150px'}}  
+                        onClick={handlerSubmit}
+                    >
+                        Создать
+                    </Button>
+                    <Button 
+                        color="error"
+                        sx={{width: '150px'}}
+                        onClick={() => togglerEvt(false)}
+                        >
+                        Выйти
+                    </Button>
+                </Stack>
             </ListItem>
         </List>
     )

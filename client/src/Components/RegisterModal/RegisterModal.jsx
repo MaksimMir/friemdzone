@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { 
     Button, 
-    Dialog, 
-    DialogActions, 
+    Dialog,  
     DialogContent, 
     DialogTitle,  
     TextField } from '@mui/material';
@@ -66,10 +65,17 @@ const RegisterModal = () => {
                 <DialogTitle id="alert-dialog-title">
                 {'Регистрация'}
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                        paddingX: '40px'
+                    }}
+                >
                 <TextField
-                    id="standard-basic-nickname"
                     label="Nickname"
+                    placeholder='John'
                     type="text"
                     autoComplete="current-text"
                     variant="standard"
@@ -78,8 +84,8 @@ const RegisterModal = () => {
                     onChange={changeHandler}
                     />
                 <TextField
-                    id="standard-basic-firstname"
                     label="Имя"
+                    placeholder='Иван'
                     type="text"
                     autoComplete="current-text"
                     variant="standard"
@@ -88,8 +94,8 @@ const RegisterModal = () => {
                     onChange={changeHandler}
                     />
                 <TextField
-                    id="standard-basic-lastname"
                     label="Фамилия"
+                    placeholder='Петров'
                     type="text"
                     autoComplete="current-text"
                     variant="standard"
@@ -98,8 +104,8 @@ const RegisterModal = () => {
                     onChange={changeHandler}
                     />
                 <TextField
-                    id="standard-basic-phone"
                     label="Телефон"
+                    placeholder='+7(000)000-00-00'
                     type="text"
                     autoComplete="current-text"
                     variant="standard"
@@ -108,7 +114,6 @@ const RegisterModal = () => {
                     onChange={changeHandler}
                     />
                 <TextField
-                    id="standard-basic-email"
                     label="Email"
                     type="email"
                     autoComplete="current-email"
@@ -118,7 +123,6 @@ const RegisterModal = () => {
                     onChange={changeHandler}
                     />
                 <TextField
-                    id="standard-password-input"
                     label="Пароль"
                     type="password"
                     autoComplete="current-password"
@@ -127,16 +131,15 @@ const RegisterModal = () => {
                     value={formData.password}
                     onChange={changeHandler}
                     />
-                </DialogContent>
-                <DialogActions>
                 <Button 
                     variant='contained' 
                     color='primary' 
                     onClick={regiterHandler}
-                    disabled={loading}>
+                    disabled={loading}
+                >
                     Зарегестрироваться
                 </Button>
-                </DialogActions>
+                </DialogContent>
             </Dialog>
         </>
     )

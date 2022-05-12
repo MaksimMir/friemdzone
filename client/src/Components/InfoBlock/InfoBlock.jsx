@@ -14,7 +14,20 @@ const InfoBlock = () => {
     const { openList } = events;
     const { openCard } = eventcard;
     return (
-        <Box sx={{ border: '3px solid', borderRadius: '50px', borderColor: indigo[900], boxShadow: '0 0 10px #1a237e inset', minHeight: '500px', padding: '15px 7px', boxSizing: 'border-box', textAlign: 'center', background: `url(${image}) no-repeat center`, backgroundSize: 'cover'}}>
+        <Box 
+            sx={{ 
+                border: '3px solid', 
+                borderRadius: '50px', 
+                borderColor: indigo[900], 
+                boxShadow: '0 0 10px #1a237e inset', 
+                minHeight: '500px', 
+                padding: '15px 7px', 
+                boxSizing: 'border-box', 
+                textAlign: 'center', 
+                background: `url(${image}) no-repeat center`, 
+                backgroundSize: 'cover'
+            }}
+        >
             <Container>
             { openEvt && <CreateEvent /> }
             { openList && <EventsList /> }

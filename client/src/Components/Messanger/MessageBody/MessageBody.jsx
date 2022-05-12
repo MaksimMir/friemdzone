@@ -21,7 +21,14 @@ const MessageBody = () => {
         getMessageList();
     })
     return (
-        <Box sx={{ minHeight: 350, border: '1px solid', borderColor: deepOrange[500], borderRadius: '4px 4px 30px 30px', padding: '10px 5px', boxSizing: 'border-box' }}>
+        <Box 
+            sx={{ 
+                minHeight: 350, 
+                border: '1px solid', 
+                borderColor: deepOrange[500], 
+                borderRadius: '4px 4px 30px 30px', 
+                padding: '10px 5px', 
+                boxSizing: 'border-box' }}>
             <List sx={{ height: '300px', overflowY: 'scroll',}}>
                 { list }
             </List>

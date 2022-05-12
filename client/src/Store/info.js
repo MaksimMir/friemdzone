@@ -3,13 +3,10 @@ import { makeObservable, observable, action } from 'mobx';
 class CreateEvent {
     openEvt = false;
 
-    togglerEvt = () => {
-        if (this.openEvt === false) {
-            return this.openEvt = true;
-        } else {
-            return this.openEvt = false;
-        }
+    togglerEvt = (flag) => {
+        this.openEvt = flag;
     }
+    
     constructor() {
         makeObservable(this, {
             openEvt: observable,

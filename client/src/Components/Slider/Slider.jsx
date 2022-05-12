@@ -36,7 +36,16 @@ const Slider = () => {
     }, [createPosters])
 
     return (
-        <Box sx={{bgcolor: indigo[600], border: '3px solid', borderRadius: '50px', borderColor: indigo[900], boxShadow: '0 0 10px #1a237e inset', marginY: '10px', minHeight: 300, padding: 3}}>
+        <Box 
+            sx={{
+                bgcolor: indigo[600], 
+                border: '3px solid', 
+                borderRadius: '50px', 
+                borderColor: indigo[900], 
+                boxShadow: '0 0 10px #1a237e inset', 
+                marginY: '10px', 
+                minHeight: 300, 
+                padding: 3}}>
             <AliceCarousel 
                 responsive={{320:{items: 1,}, 425: {items: 2}, 1024: {items: 4}}}  
                 animationDuration={700} 

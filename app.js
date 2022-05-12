@@ -11,11 +11,19 @@ const app = express();
 
 app.use(cors());
 app.use(express.json({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')))
+
 app.use('/api/auth', authRouter);
 app.use('/api/event', eventRouter);
 app.use('/api/message', messageRouter);
 app.use('/api/feedback', feedbackRouter);
+
+if (process.env.NODE_ENV === 'production') {
+    app.use('/', express.static(path.join(__dirname, 'client', 'build')));
+
+    app.get('*', (res, req) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 const PORT = config.get('port') || 5000;
 

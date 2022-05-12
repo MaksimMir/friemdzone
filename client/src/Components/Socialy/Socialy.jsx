@@ -8,17 +8,67 @@ import { deepOrange } from '@mui/material/colors';
 
 const Socialy = () => {
     return (
-        <Box sx={{ width: 200, display: 'flex', justifyContent: 'space-between'}}>
-            <Icon sx={{ padding: '5px', borderRadius: 5, bgcolor: deepOrange[500] }}>
+        <Box 
+            sx={{ 
+                width: 200, 
+                display: 'flex', 
+                justifyContent: 'space-between'
+            }}
+        >
+            <Icon sx={[
+                {
+                    padding: '5px', 
+                    borderRadius: 5, 
+                    bgcolor: deepOrange[500],
+                    transition: 'all 0.3s'
+                },
+                {
+                    '&:hover': {
+                    backgroundColor: deepOrange[400]
+                    }
+                }
+            ]}>
                 <InstagramIcon />
             </Icon>
-            <Icon  sx={{ padding: '5px', borderRadius: 5, bgcolor: deepOrange[500] }}>
+            <Icon  sx={[
+                {
+                    padding: '5px', 
+                    borderRadius: 5, 
+                    bgcolor: deepOrange[500],
+                    transition: 'all 0.3s'
+                },
+                {
+                    '&:hover': {
+                    backgroundColor: deepOrange[400]
+                    }
+                }
+            ]}>
                 <YouTubeIcon />
             </Icon>
-            <Icon  sx={{ padding: '5px', borderRadius: 5, bgcolor: deepOrange[500] }}>
+            <Icon  sx={[                {
+                    padding: '5px', 
+                    borderRadius: 5, 
+                    bgcolor: deepOrange[500],
+                    transition: 'all 0.3s'
+                },
+                {
+                    '&:hover': {
+                    backgroundColor: deepOrange[400]
+                    }
+                }]}>
                 <TwitterIcon />
             </Icon>
-            <Icon  sx={{ padding: '5px', borderRadius: 5, bgcolor: deepOrange[500] }}>
+            <Icon  sx={[                {
+                    padding: '5px', 
+                    borderRadius: 5, 
+                    bgcolor: deepOrange[500],
+                    transition: 'all 0.3s'
+                },
+                {
+                    '&:hover': {
+                    backgroundColor: deepOrange[400]
+                    }
+                }]}>
                 <TelegramIcon />
             </Icon>
         </Box>

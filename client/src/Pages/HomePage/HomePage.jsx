@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 import warningBar from "../../Store/warningBar";
 import Slider from "../../Components/Slider/Slider";
 import Feedback from "../../Components/Feedback/Feedback";
+import FeedbackForm from "../../Components/FeedbackForm/FeedbackForm";
 
 const HomePage = () => {
     const { openBar, barMessage } = warningBar;
@@ -19,6 +20,7 @@ const HomePage = () => {
             <Slider />
             {isAuthentificated && <ButtonBar />}
             <MainBlock />
+            <FeedbackForm />
             <Feedback />
             <TopBar flag={false} />
             <Snackbar 

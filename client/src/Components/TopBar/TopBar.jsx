@@ -1,5 +1,16 @@
 import React, { useContext } from 'react';
-import { AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Button } from '@mui/material';
+import { 
+    AppBar, 
+    Box, 
+    Toolbar, 
+    IconButton, 
+    Typography, 
+    Menu, 
+    Container, 
+    Avatar, 
+    Tooltip, 
+    MenuItem, 
+    Button } from '@mui/material';
 import RegisterModal from '../RegisterModal/RegisterModal';
 import AuthModal from '../AuthModal/AuthModal';
 import { authContext } from '../../Contexts/auth.context';
@@ -8,7 +19,11 @@ import store from '../../Store/store';
 import { deepOrange, indigo } from '@mui/material/colors';
 import Socialy from '../Socialy/Socialy';
 
-const settings = ['Entry', 'Registration', 'Logout'];
+const settings = [
+    {enName: 'Entry', ruName: 'Вход'}, 
+    {enName: 'Registration', ruName: 'Регистрация'}, 
+    {enName: 'Logout', ruName: 'Выход'}
+];
 
 const TopBar = ({ flag }) => {
   const { logout, userName, isAuthentificated } = useContext(authContext);
@@ -57,7 +72,13 @@ const TopBar = ({ flag }) => {
   return (
       <AppBar 
         position="static" 
-        sx={{bgcolor: indigo[600], border: '3px solid', borderRadius: '50px', borderColor: indigo[900], boxShadow: '0 0 10px #1a237e inset', marginY: '10px'}}
+        sx={{
+          bgcolor: indigo[600], 
+          border: '3px solid', 
+          borderRadius: '50px', 
+          borderColor: indigo[900], 
+          boxShadow: '0 0 10px #1a237e inset', 
+          marginY: '10px'}}
       >
       <Container maxWidth="xl">
         <Toolbar>
@@ -65,7 +86,10 @@ const TopBar = ({ flag }) => {
             variant="h6"
             noWrap
             component="div"
-            sx={{flexGrow: 1 ,display: 'flex',color: deepOrange[400]}}
+            sx={{
+              flexGrow: 1 ,
+              display: 'flex',
+              color: deepOrange[400]}}
           >
             friendzone
           </Typography>
@@ -78,7 +102,6 @@ const TopBar = ({ flag }) => {
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
-              id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: 'top',
@@ -93,9 +116,9 @@ const TopBar = ({ flag }) => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting}>
-                    <Button variant='text' name={setting} onClick={handleMenu}>
-                        {setting}
+                <MenuItem key={setting.enName}>
+                    <Button variant='text' name={setting.enName} onClick={handleMenu}>
+                        {setting.ruName}
                     </Button>
                 </MenuItem>
               ))}

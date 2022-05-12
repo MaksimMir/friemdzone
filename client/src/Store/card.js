@@ -38,7 +38,11 @@ class EventCard {
     }
 
     addUserToEvent = (user) => {
-        this.guestList.push(user);     
+        if (+this.guestList.length < +this.card.guestCount) {
+            this.guestList.push(user); 
+        } else {
+            return;
+        }  
     }
 
     constructor() {

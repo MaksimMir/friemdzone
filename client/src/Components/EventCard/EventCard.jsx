@@ -1,5 +1,12 @@
 import * as React from 'react';
-import { Card, CardActions, CardContent, Button, Typography, List, ListItem } from '@mui/material';
+import { 
+    Card, 
+    CardActions, 
+    CardContent, 
+    Button, 
+    Typography, 
+    List, 
+    ListItem } from '@mui/material';
 import eventcard from '../../Store/card';
 import { observer } from 'mobx-react-lite';
 import { authContext } from '../../Contexts/auth.context';
@@ -11,15 +18,17 @@ const EventCard = () => {
     const { request, error, cleanError } = useHttp()
     const { card, togglerCard, addUserToEvent, guestList } = eventcard;
     const { userName } = React.useContext(authContext);
+
     const addPart = () => {
       addUserToEvent(userName);
+      onOpenBar('Участник добавлен');
+      onCloseBar();
     }
+
     const closeCard = async () => {
       const userList = guestList.join(',')
       try {
         const data = await request(`/api/event/card/${card.id}`, 'PUT', {userList});
-        onOpenBar(data.message);
-        onCloseBar();
     } catch (error) {};
       togglerCard(false);
     }
@@ -36,17 +45,17 @@ const EventCard = () => {
     <Card sx={{ borderRadius: 10, padding: 5 }}>
       <CardContent>
         <Typography sx={{ fontSize: 24 }} color="text.secondary">
-          {card.userName}
+          {card.userName} приглашает
         </Typography>
         <Typography sx={{ fontSize: 24 }} component="div">
-          {card.place}
+          посетить {card.place}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
           {card.date}
         </Typography>
-          {card.guestCount}
-          <br />
+          Количество приглашенных: {card.guestCount}
         <List>
+          Участвуют: 
             {guestList?.map((el, i) => {
                 return (
                 <ListItem key={i}>

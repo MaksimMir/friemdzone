@@ -11,45 +11,53 @@ const Feedback = () => {
 
     const handleDragStart = (e) => e.preventDefault();
     let items = feedbackList?.map(el => {
+        const date = new Date(el.create_at);
         return (
             <Box 
                 key={el.id}
-                sx={{ bgcolor: 'rgba(#3949ab, .5)', borderRadius: 20, width: 700, marginX: 'auto' }}
+                sx={{ 
+                    bgcolor: 'rgba(#3949ab, .5)', 
+                    borderRadius: 20, 
+                    width: 700, 
+                    marginX: 'auto' 
+                }}
                 onDragStart={handleDragStart} 
                 role="presentation"
             >
                 <Typography 
-                    sx={{ fontSize: 17, fontWeight: 600, textAlign: 'left'}}>
+                    sx={{ 
+                        fontSize: '17px', 
+                        fontWeight: 600, 
+                        textAlign: 'left',
+                        paddingBottom: '5px'
+                    }}
+                >
                         {el.user_name}
                 </Typography>
                 <Typography 
-                    sx={{ fontSize: 14, fontWeight: 400, textAlign: 'left', color: 'white'}}>
+                    sx={{ 
+                        fontSize: '14px', 
+                        fontWeight: 400, 
+                        textAlign: 'left', 
+                        lineHeight: '20px',
+                        paddingBottom: '5px',
+                        color: 'white'
+                    }}
+                >
                         {el.message}
                 </Typography>
                 <Typography 
-                    sx={{ fontSize: 10, fontWeight: 100, textAlign: 'left', color: 'white'}}>
-                        {el.create_at}
+                    sx={{ 
+                        fontSize: '8px', 
+                        fontWeight: 100, 
+                        textAlign: 'left'
+                    }}
+                >
+                        {`${date.getDate()}.${date.getMonth()}.${date.getFullYear()}`}
                 </Typography>
             </Box>
         )
     });
-    // const { request } = useHttp();
-    // const [ formData, setFormData ] = useState({
-    //                                             name: '',
-    //                                             message: ''
-    //                                         });
-
-    // const handlerChange = evt => {
-    //     setFormData({...formData, [evt.target.name]: evt.target.value});
-    // }
-
-    // const submitMessage = async (evt) => {
-    //     evt.preventDefault();
-    //     try {
-    //         const data = await request('/api/feedback', 'POST', {...formData});
-    //         console.log(data);
-    //     } catch (error) {};
-    // }
 
     useEffect(() => {
         createList();
